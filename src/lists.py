@@ -36,7 +36,11 @@ def length(x: LList[T]) -> int:
     >>> length(Link(1, Link(2, None)))
     2
     """
-    ...
+    acc = 0
+    while x:
+        acc += 1
+        x = x.tail
+    return acc
 
 
 def drop(x: LList[T], k: int) -> LList[T]:
@@ -52,7 +56,13 @@ def drop(x: LList[T], k: int) -> LList[T]:
     >>> drop(Link(1, Link(2, None)), 1)
     Link(2, None)
     """
-    ...
+    if length(x) < k:
+        return None
+    acc = None
+    while k > 0:
+        acc = x.tail
+        k -= 1
+    return acc
 
 
 def take(x: LList[T], k: int) -> LList[T]:
@@ -69,7 +79,14 @@ def take(x: LList[T], k: int) -> LList[T]:
     >>> take(Link(1, Link(2, Link(3, None))), 2)
     Link(1, Link(2, None))
     """
-    ...
+    acc = None
+    if length(x) < k:
+        return x
+    while k > 0:
+        acc = Link(x.head, acc)
+        k -= 1
+        x = x.tail
+    return reverse(acc)
 
 
 def reverse(x: LList[T]) -> LList[T]:
@@ -87,4 +104,8 @@ def reverse(x: LList[T]) -> LList[T]:
     >>> reverse(Link(1, Link(2, Link(3, None))))
     Link(3, Link(2, Link(1, None)))
     """
-    ...
+    acc = None
+    while x:
+        acc = Link(x.head, acc)
+        x = x.tail
+    return acc
